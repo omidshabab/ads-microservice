@@ -14,8 +14,7 @@ class UserService:
         hashed_password = pwd_context.hash(user.password)
         db_user = User(
             email=user.email,
-            hashed_password=hashed_password,
-            preferences=json.dumps(user.preferences.dict() if user.preferences else {})
+            hashed_password=hashed_password
         )
         db.add(db_user)
         db.commit()
@@ -31,7 +30,7 @@ class UserService:
     def update_preferences(self, db: Session, user_id: int, preferences: UserPreferences) -> User:
         db_user = self.get_user(db, user_id)
         if db_user:
-            db_user.preferences = json.dumps(preferences.dict())
+            db_user.preferences = json.dumps(preferences.model_dump())
             db.commit()
             db.refresh(db_user)
         return db_user

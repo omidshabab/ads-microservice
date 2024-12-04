@@ -9,6 +9,7 @@ from enum import Enum
 
 class TrainingStatus(Enum):
     IDLE = "idle"
+    SCHEDULED = "scheduled"
     TRAINING = "training"
     COMPLETED = "completed"
     FAILED = "failed"
